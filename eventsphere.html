@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EventSphere</title>
+  <style>
+    /* Same styling as before, plus form and event list styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #ffcc00;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    section {
+      display: none;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .hero button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ffcc00;
+      color: #000;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .hero button:hover {
+      background-color: #e6b800;
+    }
+
+    .features {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .feature {
+      max-width: 200px;
+      margin: 20px;
+    }
+
+    .feature h3 {
+      margin-bottom: 10px;
+      color: #ffcc00;
+    }
+
+    .feature p {
+      font-size: 0.9rem;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #ffcc00;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    form {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    form input, form textarea {
+      width: 80%;
+      max-width: 400px;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    form button {
+      background-color: #ffcc00;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .event-list {
+      margin-top: 40px;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .event-item {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+    }
+
+    .event-item h3 {
+      color: #ffcc00;
+    }
+
+    @media (max-width: 768px) {
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EventSphere</h1>
+    <nav>
+      <a onclick="showSection('home')">Home</a>
+      <a onclick="showSection('events')">Events</a>
+      <a onclick="showSection('about')">About</a>
+      <a onclick="showSection('contact')">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Home Section -->
+  <section id="home" class="active hero">
+    <h2>Plan. Host. Celebrate.</h2>
+    <p>Your all-in-one event manager for unforgettable moments.</p>
+    <button onclick="showSection('events')">Create Event</button>
+    <button onclick="showSection('events')">View Events</button>
+
+    <div class="features">
+      <div class="feature">
+        <h3>🎯 Easy Scheduling</h3>
+        <p>Set dates, times, and reminders with just a few clicks.</p>
+      </div>
+      <div class="feature">
+        <h3>💌 Custom Invites</h3>
+        <p>Send personalized invitations and track RSVPs.</p>
+      </div>
+      <div class="feature">
+        <h3>📱 Real-Time Updates</h3>
+        <p>Keep guests informed with instant notifications.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section id="events">
+    <h2>Create a New Event</h2>
+    <form id="eventForm">
+      <input type="text" id="title" placeholder="Event Title" required />
+      <input type="date" id="date" required />
+      <textarea id="description" rows="4" placeholder="Event Description"></textarea>
+      <button type="submit">Add Event</button>
+    </form>
+
+    <div class="event-list" id="eventList">
+      <h2>Upcoming Events</h2>
+      <!-- Events will appear here -->
+    </div>
+
+    <span class="back-link" onclick="showSection('home')">← Back to Home</span>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About EventSphere</h2>
+    <p>We help you plan and manage events with ease and style.</p>
+    <span class="back-link" onclick="showSection('home')">← Back to Home</span>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: support@eventsphere.com</p>
+    <span class="back-link" onclick="showSection('home')">← Back to Home</span>
+  </section>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(sec => {
+        sec.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
+
+    const eventForm = document.getElementById('eventForm');
+    const eventList = document.getElementById('eventList');
+
+    eventForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const title = document.getElementById('title').value;
+      const date = document.getElementById('date').value;
+      const description = document.getElementById('description').value;
+
+      if (title && date) {
+        const eventItem = document.createElement('div');
+        eventItem.className = 'event-item';
+        eventItem.innerHTML = `
+          <h3>${title}</h3>
+          <p><strong>Date:</strong> ${date}</p>
+          <p>${description}</p>
+        `;
+        eventList.appendChild(eventItem);
+
+        eventForm.reset();
+      }
+    });
+  </script>
+</body>
+</html>
